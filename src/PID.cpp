@@ -26,12 +26,29 @@ void PID::Init(double p, double i, double d) {
     p_error = 0.0;
     i_error = 0.0;
     d_error = 0.0;
+
+    moves = 0;
+    total_error = 0.0;
+
+    dp = 1.0;
+    di = 1.0;
+    dd = 1.0;
 }
 
-void PID::UpdateError(double cte) {
+void Twiddle(){
     
 }
 
+void PID::UpdateError(double cte) {
+    d_error = cte - p_error;
+    p_error = cte;
+    i_error += cte;
+
+    total_error += cte;
+    moves++;
+}
+
 double PID::TotalError() {
+    return total_error/(double)moves;
 }
 

@@ -4,6 +4,9 @@
 #include "PID.h"
 #include <math.h>
 
+
+using namespace std;
+
 // for convenience
 using json = nlohmann::json;
 
@@ -33,7 +36,11 @@ int main()
   uWS::Hub h;
 
   PID pid;
+
+  
   // TODO: Initialize the pid variable.
+  
+  pid.Init(0.2, 0.0,2.0);
 
   h.onMessage([&pid](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
     // "42" at the start of the message means there's a websocket message event.
@@ -51,21 +58,55 @@ int main()
           double speed = std::stod(j[1]["speed"].get<std::string>());
           double angle = std::stod(j[1]["steering_angle"].get<std::string>());
           double steer_value;
+          double speed_value;
           /*
           * TODO: Calcuate steering value here, remember the steering value is
           * [-1, 1].
           * NOTE: Feel free to play around with the throttle and speed. Maybe use
           * another PID controller to control the speed!
           */
+         //Speed control
+         speed_value = 0.3;
+        //  if(cte > pid.p_error){
+        //     speed_value = speed/100.0 * 0.75;  
+            
+        //  }else{
+        //     speed_value = speed/100.0 * 1.1;
+            
+        //  }
+
+        //  if(speed_value < 0.3){
+        //       speed_value = 0.3;
+        //  }else if(speed_value > 1.0)  {
+        //       speed_value = 1.0;
+        //     }
+
+         pid.UpdateError(cte);
+         steer_value = - pid.Kp * pid.p_error - pid.Kd * pid.d_error - pid.Ki * pid.i_error;
+
+         if(steer_value < -1.0){
+           cout << "Max steering -1" << endl;
+           steer_value = -1.0;
+         }else if(steer_value > 1.0){
+           cout << "Max steering +1" << endl;
+           steer_value = 1.0;
+         }
+
+         
           
           // DEBUG
-          std::cout << "CTE: " << cte << " Steering Value: " << steer_value << std::endl;
+          std::cout << "CTE: " << cte << " Angle:" << angle << " Steering Value: " << steer_value  << " Speed:" << speed_value << " Error:" << pid.total_error << " Moves:" << pid.moves  << std::endl;
+          
+          if(cte > 2.0){
+            cout << "Large CTE - stopping.." << endl;
+            exit(0);
+          }
 
           json msgJson;
           msgJson["steering_angle"] = steer_value;
-          msgJson["throttle"] = 0.3;
+          msgJson["throttle"] = speed_value;
           auto msg = "42[\"steer\"," + msgJson.dump() + "]";
-          std::cout << msg << std::endl;
+          //std::cout << msg << std::endl;
           ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
         }
       } else {

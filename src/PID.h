@@ -17,6 +17,13 @@ public:
   double Ki;
   double Kd;
 
+  double dp;
+  double di;
+  double dd;
+
+  int moves;
+  double total_error;
+
   /*
   * Constructor
   */
@@ -41,6 +48,8 @@ public:
   * Calculate the total PID error.
   */
   double TotalError();
+
+  void Twiddle();
 };
 
 #endif /* PID_H */
