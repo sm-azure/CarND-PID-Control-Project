@@ -22,7 +22,12 @@ public:
   double dd;
 
   int moves;
+  int twiddle_iterations;
+  
   double total_error;
+
+  double best_error;
+
 
   /*
   * Constructor

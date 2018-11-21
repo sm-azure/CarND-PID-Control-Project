@@ -1,4 +1,5 @@
 #include "PID.h"
+#include <limits>
 
 using namespace std;
 
@@ -14,6 +15,13 @@ PID::PID() {
     Kp = 0.0;
     Ki = 0.0;
     Kd = 0.0;
+
+    dp = 1.0;
+    di = 1.0;
+    dd = 1.0;
+
+    best_error = std::numeric_limits<double>::max();
+    twiddle_iterations = 10;
 }
 
 PID::~PID() {}
@@ -29,10 +37,6 @@ void PID::Init(double p, double i, double d) {
 
     moves = 0;
     total_error = 0.0;
-
-    dp = 1.0;
-    di = 1.0;
-    dd = 1.0;
 }
 
 void Twiddle(){
@@ -44,7 +48,7 @@ void PID::UpdateError(double cte) {
     p_error = cte;
     i_error += cte;
 
-    total_error += cte;
+    total_error += cte*cte;
     moves++;
 }
 
