@@ -15,8 +15,13 @@ Based on a number of Internet resources, I tried to set the PID control paramete
 The following table shows the different parameterv alues tried. The error was computed over the first 2300 iterations. 
 
 
-| Kp        | Kd       | Ki     | Error   |
-| ----------|:--------:| :-----:|--------:|
-| col 3 is      | right-aligned | $1600 |
-| col 2 is      | centered      |   $12 |
-| zebra stripes | are neat      |    $1 |
+| Kp        | Kd       | Ki     | Error      |
+| ----------|:--------:| :-----:|-----------:|
+| 0.2       | 0.00125  | 4.0    | Off track  |
+| 0.4       | 0.00125  | 4.0    | 304.308    |
+| 0.4       | 0.00250  | 4.0    | 296.327    |
+| 0.4       | 0.00250  | 8.0    | 376.964    |
+
+
+The manual parameter setting was interesting as it gave a very clear idea of what each parameter was doing. However, yt was also clear that it is very arbitrary and we need an automated way of computing the Kp, Ki and Kd parameters over multiple iterations. 
+
