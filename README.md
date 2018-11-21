@@ -23,5 +23,5 @@ The following table shows the different parameterv alues tried. The error was co
 | 0.4       | 0.00250  | 8.0    | 376.964    |
 
 
-The manual parameter setting was interesting as it gave a very clear idea of what each parameter was doing. However, yt was also clear that it is very arbitrary and we need an automated way of computing the Kp, Ki and Kd parameters over multiple iterations. 
+The manual parameter setting was interesting as it gave a very clear idea of what each parameter was doing. However, it was also clear that it is very arbitrary and we need an automated way of computing the Kp, Ki and Kd parameters over multiple iterations. 
 
