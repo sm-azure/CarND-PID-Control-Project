@@ -40,7 +40,7 @@ int main()
   
   // TODO: Initialize the pid variable.
   
-  pid.Init(0.2, 0.00125,4.0);
+  pid.Init(0.4, 0.0025,4.0);
 
   h.onMessage([&pid](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
     // "42" at the start of the message means there's a websocket message event.
@@ -97,7 +97,7 @@ int main()
           // DEBUG
           std::cout << "CTE: " << cte << " Angle:" << angle << " Steering Value: " << steer_value  << " Speed:" << speed_value << " Error:" << pid.total_error << " Moves:" << pid.moves  << std::endl;
           
-          if(cte > 3.5){
+          if(cte > 4.5){
             cout << "Large CTE - stopping.." << endl;
             exit(0);
           }
