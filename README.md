@@ -13,6 +13,8 @@ Based on a number of Internet resources, I tried to set the PID control paramete
 * **Ki**: Since the car was able to complete the track with the Ki parameter set to 0, I used the error parameter to check if by introducing the Ki parameter, the error was getting reduced. This was indeed the case and the final selected value of Ki was 0.0025
 
 The following table shows the different parameterv alues tried. The error was computed over the first 2300 iterations. 
+
+
 | Kp        | Kd       | Ki     | Error   |
 | ----------|:--------:| :-----:|--------:|
 | col 3 is      | right-aligned | $1600 |
