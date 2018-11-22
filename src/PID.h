@@ -54,6 +54,8 @@ public:
   */
   double TotalError();
 
+  double CumulativeError();
+
   void Twiddle();
 };
 
